@@ -5,6 +5,7 @@ import { useHistory } from '@/hooks/useHistory'
 import FloorPlanCanvas from '@/components/Canvas/FloorPlanCanvas'
 import Toolbar from '@/components/Controls/Toolbar'
 import PropertiesPanel from '@/components/Panels/PropertiesPanel'
+import InfoBar from '@/components/Header/InfoBar'
 import type { FloorPlan } from '@/types'
 
 const { Content } = Layout
@@ -65,6 +66,7 @@ const EditorPage = () => {
 
   return (
     <Layout style={{ height: '100vh', background: '#0a0a1a' }}>
+      <InfoBar />
       <Content style={{ position: 'relative', overflow: 'hidden' }}>
         <FloorPlanCanvas
           historyState={historyState}

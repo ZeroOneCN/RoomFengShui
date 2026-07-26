@@ -21,7 +21,15 @@ interface AppStore extends AppState {
   setPlaying: (playing: boolean) => void
   setDemoSpeed: (speed: number) => void
   setManualShichen: (shichen: ShiChen | null) => void
+  setWindDirection: (dir: number) => void
+  setWindStrength: (strength: number) => void
+  setCurrentTime: (date: Date) => void
+  setAutoTime: (auto: boolean) => void
   reset: () => void
+  windDirection: number
+  windStrength: number
+  currentTime: Date
+  autoTime: boolean
 }
 
 export const useAppStore = create<AppStore>((set) => ({
@@ -35,6 +43,10 @@ export const useAppStore = create<AppStore>((set) => ({
   isPlaying: false,
   demoSpeed: 1,
   manualShichen: null,
+  windDirection: 0,
+  windStrength: 0.5,
+  currentTime: new Date(),
+  autoTime: true,
 
   setCurrentTool: (tool) => set({ currentTool: tool }),
   setFloorPlan: (plan) =>
@@ -47,6 +59,10 @@ export const useAppStore = create<AppStore>((set) => ({
   setPlaying: (playing) => set({ isPlaying: playing }),
   setDemoSpeed: (speed) => set({ demoSpeed: speed }),
   setManualShichen: (shichen) => set({ manualShichen: shichen }),
+  setWindDirection: (dir) => set({ windDirection: dir }),
+  setWindStrength: (strength) => set({ windStrength: strength }),
+  setCurrentTime: (date) => set({ currentTime: date }),
+  setAutoTime: (auto) => set({ autoTime: auto }),
   reset: () =>
     set({
       floorPlan: createEmptyFloorPlan(),
@@ -59,5 +75,9 @@ export const useAppStore = create<AppStore>((set) => ({
       isPlaying: false,
       demoSpeed: 1,
       manualShichen: null,
+      windDirection: 0,
+      windStrength: 0.5,
+      currentTime: new Date(),
+      autoTime: true,
     }),
 }))
