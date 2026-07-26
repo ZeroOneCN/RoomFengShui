@@ -6,23 +6,16 @@ import FloorPlanCanvas from '@/components/Canvas/FloorPlanCanvas'
 import Toolbar from '@/components/Controls/Toolbar'
 import PropertiesPanel from '@/components/Panels/PropertiesPanel'
 import InfoBar from '@/components/Header/InfoBar'
+import { createDefaultFloorPlan } from '@/utils/defaultPlan'
 import type { FloorPlan } from '@/types'
 
 const { Content } = Layout
 
-const createEmptyPlan = (): FloorPlan => ({
-  walls: [],
-  windows: [],
-  doors: [],
-  rooms: [],
-  orientation: 0,
-  center: { x: 400, y: 300 },
-})
-
 const EditorPage = () => {
-  const { reset: resetStore } = useAppStore()
+  const { floorPlan: storePlan } = useAppStore()
+  const initialPlan = storePlan.walls.length > 0 ? storePlan : createDefaultFloorPlan()
   const { state: historyState, set: setHistory, undo, redo, canUndo, canRedo, reset: resetHistory } =
-    useHistory<FloorPlan>(createEmptyPlan())
+    useHistory<FloorPlan>(initialPlan)
 
   const [selectedId, setSelectedId] = useState<string | null>(null)
 
@@ -34,10 +27,9 @@ const EditorPage = () => {
   )
 
   const handleReset = useCallback(() => {
-    resetHistory(createEmptyPlan())
+    resetHistory(createDefaultFloorPlan())
     setSelectedId(null)
-    resetStore()
-  }, [resetHistory, resetStore])
+  }, [resetHistory])
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {

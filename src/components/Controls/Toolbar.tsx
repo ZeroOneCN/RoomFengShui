@@ -1,5 +1,6 @@
 import { Button, Space, Tooltip, Divider } from 'antd'
 import {
+  HomeOutlined,
   SelectOutlined,
   BorderOutlined,
   ColumnWidthOutlined,
@@ -47,12 +48,23 @@ const Toolbar = ({ onUndo, onRedo, onReset, canUndo, canRedo }: ToolbarProps) =>
         display: 'flex',
         flexDirection: 'column',
         gap: 4,
-        border: '1px solid rgba(255, 215, 0, 0.3)',
+        border: '1px solid rgba(212, 175, 55, 0.3)',
         backdropFilter: 'blur(10px)',
         zIndex: 100,
       }}
     >
       <Space direction="vertical" size={4}>
+        <Tooltip title="返回首页" placement="right">
+          <Button
+            type="text"
+            icon={<HomeOutlined />}
+            onClick={() => navigate('/')}
+            style={{ width: 40, height: 40, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+          />
+        </Tooltip>
+
+        <Divider style={{ margin: '8px 0', borderColor: 'rgba(255,255,255,0.1)' }} />
+
         {tools.map((tool) => (
           <Tooltip key={tool.type} title={tool.label} placement="right">
             <Button

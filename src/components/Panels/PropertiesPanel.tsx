@@ -8,7 +8,7 @@ const { Title, Text } = Typography
 const PropertiesPanel = () => {
   const {
     floorPlan,
-    setFloorPlan,
+    updateFloorPlan,
     showWindField,
     showEnergy,
     showLighting,
@@ -53,7 +53,7 @@ const PropertiesPanel = () => {
       <Card size="small" style={{ background: 'rgba(255,255,255,0.05)', border: 'none', marginBottom: 12 }}>
         <Compass
           orientation={floorPlan.orientation}
-          onChange={(deg) => setFloorPlan({ orientation: deg })}
+          onChange={(deg) => updateFloorPlan({ orientation: deg })}
         />
         <Text style={{ color: 'rgba(255,255,255,0.6)', fontSize: 11, display: 'block', textAlign: 'center', marginTop: 4 }}>
           房屋朝向：{getDirectionName(floorPlan.orientation)} ({Math.round(floorPlan.orientation)}°)

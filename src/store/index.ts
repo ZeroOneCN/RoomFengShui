@@ -12,7 +12,8 @@ const createEmptyFloorPlan = (): FloorPlan => ({
 
 interface AppStore extends AppState {
   setCurrentTool: (tool: ToolType) => void
-  setFloorPlan: (plan: Partial<FloorPlan>) => void
+  setFloorPlan: (plan: FloorPlan) => void
+  updateFloorPlan: (plan: Partial<FloorPlan>) => void
   toggleWindField: () => void
   toggleEnergy: () => void
   toggleLighting: () => void
@@ -49,8 +50,8 @@ export const useAppStore = create<AppStore>((set) => ({
   autoTime: true,
 
   setCurrentTool: (tool) => set({ currentTool: tool }),
-  setFloorPlan: (plan) =>
-    set((state) => ({ floorPlan: { ...state.floorPlan, ...plan } })),
+  setFloorPlan: (plan) => set({ floorPlan: plan }),
+  updateFloorPlan: (plan) => set((state) => ({ floorPlan: { ...state.floorPlan, ...plan } })),
   toggleWindField: () => set((state) => ({ showWindField: !state.showWindField })),
   toggleEnergy: () => set((state) => ({ showEnergy: !state.showEnergy })),
   toggleLighting: () => set((state) => ({ showLighting: !state.showLighting })),
