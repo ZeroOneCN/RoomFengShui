@@ -27,20 +27,38 @@ export const getShiChenTimeRange = (shichen: ShiChen): [number, number] => {
 }
 
 export const getLunarInfo = (date: Date = new Date()) => {
-  const solar = Solar.fromDate(date)
-  const lunar = solar.getLunar()
-  return {
-    lunarYear: lunar.getYear(),
-    lunarMonth: lunar.getMonth(),
-    lunarDay: lunar.getDay(),
-    lunarMonthName: lunar.getMonthInChinese(),
-    lunarDayName: lunar.getDayInChinese(),
-    yearGanZhi: lunar.getYearInGanZhi(),
-    monthGanZhi: lunar.getMonthInGanZhi(),
-    dayGanZhi: lunar.getDayInGanZhi(),
-    yearShengXiao: lunar.getYearShengXiao(),
-    jieQi: lunar.getJieQi(),
-    isJieQi: lunar.isJieQi(),
+  try {
+    const solar = Solar.fromDate(date)
+    const lunar = solar.getLunar()
+    const jieQiTable = lunar.getJieQiTable()
+    const currentJieQi = (lunar as any).getCurrentJieQi ? (lunar as any).getCurrentJieQi() : ''
+    return {
+      lunarYear: lunar.getYear(),
+      lunarMonth: lunar.getMonth(),
+      lunarDay: lunar.getDay(),
+      lunarMonthName: lunar.getMonthInChinese(),
+      lunarDayName: lunar.getDayInChinese(),
+      yearGanZhi: lunar.getYearInGanZhi(),
+      monthGanZhi: lunar.getMonthInGanZhi(),
+      dayGanZhi: lunar.getDayInGanZhi(),
+      yearShengXiao: lunar.getYearShengXiao(),
+      jieQi: typeof currentJieQi === 'string' ? currentJieQi : '',
+      isJieQi: !!jieQiTable,
+    }
+  } catch (e) {
+    return {
+      lunarYear: date.getFullYear(),
+      lunarMonth: date.getMonth() + 1,
+      lunarDay: date.getDate(),
+      lunarMonthName: '',
+      lunarDayName: '',
+      yearGanZhi: '',
+      monthGanZhi: '',
+      dayGanZhi: '',
+      yearShengXiao: '',
+      jieQi: '',
+      isJieQi: false,
+    }
   }
 }
 
