@@ -45,7 +45,7 @@ export interface FloorPlan {
 
 export type NineStar = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
 
-export type StarStatus = 'wang' | 'sheng' | 'shuai' | 'si' | 'sha'
+export type StarStatus = 'wang' | 'sheng' | 'ping' | 'shuai' | 'si' | 'sha'
 
 export interface FlyingStarChart {
   period: number
